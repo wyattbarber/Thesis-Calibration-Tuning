@@ -1,0 +1,6 @@
+**.png
+**.jpg
+**.pickle
+**/build/**
+**/__pycache__/**
+calibration/lensboy-main
