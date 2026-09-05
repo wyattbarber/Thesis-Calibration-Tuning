@@ -90,10 +90,10 @@ class PinholeCalibrator:
                 self._imgpoints[i] = np.delete(
                     self._imgpoints[i], outliers, 0
                 )
-        for i in idx_to_remove:            
-            self._objpoints.pop(i)
-            self._imgpoints.pop(i)
-        
+          
+        self._objpoints = [self._objpoints[i] for i in range(len(self._objpoints)) if i not in idx_to_remove]
+        self._imgpoints = [self._imgpoints[i] for i in range(len(self._imgpoints)) if i not in idx_to_remove]
+    
 
     def recalculate(self):
         self._estimate()
@@ -337,13 +337,13 @@ class StereoCalibrator:
                 self._imgpoints_r[i] = np.delete(
                     self._imgpoints_r[i], outliers, 0
                 )
-        for i in idx_to_remove:            
-            self._objpoints.pop(i)
-            self._imgpoints_l.pop(i)
-            self._imgpoints_r.pop(i)
-            self._tvecs.pop(i)
-            self._rvecs.pop(i)
-
+        
+        self._objpoints = [self._objpoints[i] for i in range(len(self._objpoints)) if i not in idx_to_remove]
+        self._imgpoints_l = [self._imgpoints_l[i] for i in range(len(self._imgpoints_l)) if i not in idx_to_remove]
+        self._imgpoints_r = [self._imgpoints_r[i] for i in range(len(self._imgpoints_r)) if i not in idx_to_remove]
+        self._tvecs = [self._tvecs[i] for i in range(len(self._tvecs)) if i not in idx_to_remove]
+        self._rvecs = [self._rvecs[i] for i in range(len(self._rvecs)) if i not in idx_to_remove]
+        
     def recalculate(self):
         self._estimate()
         self._left_residuals = [None] * self.count_valid
